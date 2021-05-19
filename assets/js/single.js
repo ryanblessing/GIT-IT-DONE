@@ -1,6 +1,6 @@
 var repoNameEl = document.querySelector("#repo-name");
 var issueContainerEl = document.querySelector("#issues-container");
-
+var limitWarningEl = document.querySelector("#limit-warning");
 
 var getRepoIssues = function(repo) {
 
@@ -37,9 +37,9 @@ var displayIssues = function(issues) {
     //loop over the repos
 for (var i = 0; i < issues.length; i++) {
     //format repo name
-    var issuesName = issues[i].owner.login + '/' + issues[i].name;
+    var repoNameEl = issues[i].owner.login + '/' + issues[i].name;
 
-    //create a <a> ellement for each issue
+    //create a <a> element for each issue
     var issueEl = document.createElement('a');
     issueEl.classList = "list-item flex-row justify-space-between align-center";
     
@@ -69,4 +69,17 @@ for (var i = 0; i < issues.length; i++) {
     // append to container
     issueEl.appendChild(typeEl);
     }
+};
+
+var displayWarning = function(repo) {
+    // add text to warning container
+    limitWarningEl.textContent = "To see more than 30 issues, visit ";
+
+    var linkEl = document.createElement("a");
+    linkEl.textContent = "See more issues on GitHub.com";
+    linkEl.setAttribute("href", "https://github.com/" + repo + "/issues");
+    linkEl.setAttribute("target", "_blank");
+
+    //append to warning container
+    limitWarningEl.appendChild(linkEl);
 };
